@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Events</title>
+        <!-- Import Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <!-- Custom CSS -->
+        <style>
+
+
+
+
+
+
+            a{text-decoration: none;
+            color: white;}
+            h1{
+               text-align: center;
+                
+            }
+           
+            table {
+                margin-top: 20px;
+                margin: 0 auto;
+                width: 90%;
+                border-collapse: collapse;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+            }
+    
+            th, td {
+                padding: 10px 15px;
+                text-align: left;
+                border-bottom: 1px solid #eee;
+            }
+    
+            th {
+                background-color: #333;
+                color: #fff;
+                font-weight: bold;
+                text-transform: uppercase;
+                border-bottom: 2px solid #333;
+            }
+    
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+    
+            .add-button {
+                margin-top: 20px;
+            }
+            .text-wrap {
+    word-wrap: break-word;
+    width: 240px; /* Adjust as necessary */
+  }
+        </style>
+<body >
+  
+      <br>
+    <h1 style="color: black;">Available Events</h1>
+    <div class="cont">
+    <button style="background-color: grey; color: white; padding: 10px 20px; border-radius: 5px;margin-left: 67px;margin-bottom: 20px;"><a href="{% url 'Add'  %}" style="text-decoration: none; color: white;">Ajouter</a></button>
+
+  <table>
+    {% if messages %}
+        <div class="messages">
+          {% for message in messages %} {% if message.tags == 'error' %}
+          <div class="alert alert-danger">{{ message }}</div>
+          {% elif message.tags == 'success' %}
+          <div class="alert alert-success">{{ message }}</div>
+          {% else %}
+          <div class="alert alert-info">{{ message }}</div>
+          {% endif %} {% endfor %}
+       </div>
+          {% endif %}
+    <thead>
+       
+        <tr>
+            
+            <th>Title</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Category</th>
+        <th>State</th>
+        <th>Participants</th>
+        <th>Event Date</th>
+   
+        <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ee in e %} 
+      <tr>
+        <td>{{ee.title}}</td>
+        <td>{{ee.description}}</td>
+        <td><p class="text-wrap">{{ee.image}}</p></td>
+        <td>{{ee.category}}</td>
+        <td>{{ee.state}}</td>
+        <td>{{ee.nbe_participant}}</td>
+        <td>{{ ee.evt_date|date:"d/m/Y" }}</td>
+        
+        <td>
+            <button class="btn btn-sm btn-primary"><a href="{% url 'D' ee.title %}">Detail</a></button>
+            <button class="btn btn-sm btn-danger"><a href="{% url 'supprimer' ee.id %}">Delete</a></button>
+        </td>
+      </tr>
+      {% endfor %}
+       
+    </tbody>
+</table>
+
+</div>
+</div>
+
+<!-- Import Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
